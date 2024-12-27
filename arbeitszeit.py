@@ -31,7 +31,7 @@ if __name__ == "__main__":
         api_response = {
             date.fromisoformat(value['datum']): key
             for key, value
-            in api_instance.get_feiertage(args.year, nur_land=args.land).items()
+            in api_instance.get_feiertage(jahr=args.year, nur_land=args.land).items()
         }
         print(calendar.month(int(args.year), args.month), sep="\n", end="\n", file=output)
         elternzeit = args.elternzeit
@@ -47,19 +47,19 @@ if __name__ == "__main__":
                 print(api_response[d], "(Feiertag)", file=output)
             elif d in vacation_days:
                 print("Urlaub", file=output)
-            elif elternzeit:
+            elif elternzeit: # 32 hours
                 if d in half_vacation_days:
-                    print("Arbeit: 13:00 Uhr bis 14:30 Uhr", file=output)
+                    print("Arbeit: 8:00 Uhr bis 11:30 Uhr", file=output)
                 elif d.weekday() == 0:
-                    print("Arbeit: 10:00-11:00 Uhr, 13:00-14:00 Uhr und 15:00-16:00", file=output)
+                    print("Arbeit: 8:00-12:00 Uhr, 13:00-15:30 Uhr", file=output)
                 elif d.weekday() == 1:
-                    print("Arbeit: 10:00-12:00 Uhr, 16:00-17:00", file=output)
+                    print("Arbeit: 8:00-12:00 Uhr, 13:00-15:30 Uhr", file=output)
                 elif d.weekday() == 2:
-                    print("Arbeit: 10:00-12:00 Uhr, 14:00-15:00", file=output)
+                    print("Arbeit: 8:00-12:00 Uhr, 13:00-15:30 Uhr", file=output)
                 elif d.weekday() == 3:
-                    print("Arbeit: 10:00-12:00 Uhr, 14:00-15:00", file=output)
+                    print("Arbeit: 8:00-12:00 Uhr, 13:00-15:30 Uhr", file=output)
                 elif d.weekday() == 4:
-                    print("Arbeit: 10:00-12:00 Uhr, 14:00-15:00", file=output)
+                    print("Arbeit: 8:00-12:00 Uhr, 13:00-15:00 Uhr", file=output)
             else:
                 if d in half_vacation_days:
                     print("Arbeit: 13:00 Uhr bis 17:00 Uhr", file=output)
